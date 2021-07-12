@@ -77,6 +77,7 @@ endif #ENABLE_INTEGRATION
 
 if UNIT
 TESTS_UNIT  = \
+    test/unit/test-wrap \
     test/unit/CommonPreparePrologue \
     test/unit/CopyCommandHeader \
     test/unit/io \
@@ -394,6 +395,11 @@ CLEANFILES += \
     test/unit/*.log
 
 if UNIT
+test_unit_test_wrap_CFLAGS  = $(TESTS_CFLAGS)
+test_unit_test_wrap_LDADD   = $(libutil)
+test_unit_test_wrap_LDFLAGS = -Wl,--wrap=open
+test_unit_test_wrap_SOURCES = test/unit/test-wrap.c
+
 if ENABLE_TCTI_DEVICE
 test_unit_tcti_device_CFLAGS  = $(CMOCKA_CFLAGS) $(TESTS_CFLAGS)
 test_unit_tcti_device_LDADD   = $(CMOCKA_LIBS) $(libtss2_mu) $(libutil)
